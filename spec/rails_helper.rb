@@ -1,5 +1,10 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require 'spec_helper'
+require "simplecov"
+require("./spec/support/factory_bot")
+
+SimpleCov.start
+
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 # Prevent database truncation if the environment is production
@@ -20,7 +25,7 @@ require 'rspec/rails'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Rails.root.glob('spec/support/**/*.rb').sort.each { |f| require f }
+Rails.root.glob('spec/support/**/*.rb').sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -29,11 +34,13 @@ begin
 rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
   ]
+  config.include TestHelpers
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -63,3 +70,36 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
+RSpec.configure do |config|
+  config.formatter = :documentation
+end
+
+
+
+def check_hash_structure(object, key, data_type)
+  expect(object).to have_key(key)
+  expect(object[key]).to be_a(data_type)
+end
+
+VCR.configure do |config|
+  config.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
+  config.hook_into :webmock
+  config.filter_sensitive_data('<TOMTOM_API_KEY>') { ENV['tomtom_api_key'] }
+  config.configure_rspec_metadata!
+  config.allow_http_connections_when_no_cassette = false
+  config.default_cassette_options = {
+    record: :new_episodes,
+    match_requests_on: [:method, :uri]
+  }
+end
+

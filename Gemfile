@@ -2,6 +2,14 @@ source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.2"
+gem 'faraday'
+gem 'faraday_middleware'
+gem "figaro"
+gem "rubocop"
+gem "rubocop-discourse"
+gem "solargraph"
+gem "standard"
+gem "jsonapi-serializer"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3"
@@ -52,6 +60,8 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem "pry"
+  gem "factory_bot_rails"
+  gem "faker"
 end
 
 group :test do
@@ -59,6 +69,9 @@ group :test do
   gem "capybara"
   gem "launchy"
   gem "simplecov"
+  gem "shoulda-matchers"
+  gem "vcr"
+  gem "webmock"
 end
 
 group :development do
