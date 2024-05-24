@@ -20,6 +20,8 @@ Bundler.require(*Rails.groups)
 
 module WhatsInMyFood7
   class Application < Rails::Application
+    #  app/facades directory to the autoload paths
+    config.autoload_paths << "#{Rails.root}/app/facades"
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
