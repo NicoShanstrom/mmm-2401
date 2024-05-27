@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "FoodDataApiFacade" do
-  it 'should call the facade and retrieve search results' do
+  it 'should call the facade and retrieve search results for a food' do
     search_term = 'sweet potato'
 
     results = FoodDataApiFacade.search_foods(search_term)
