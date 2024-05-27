@@ -11,8 +11,10 @@ class FoodDataApi
     end
   end
 
-  def self.get(endpoint)
-    response = connection.get(endpoint)
+  def self.get(endpoint, params = {})
+    response = connection.get(endpoint) do |req|
+      req.params = params
+    end
     handle_response(response)
   end
   

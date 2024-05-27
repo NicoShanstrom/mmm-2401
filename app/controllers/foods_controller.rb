@@ -1,11 +1,8 @@
 class FoodsController < ApplicationController
-    def index
-      foods_data = FoodDataApiFacade.search_foods
-      @foods = FoodService.build_foods(foods_data)
-    end
-    
+
     def show
-      food_data = FoodDataApiFacade.get_food(params[:id])
-      @food = Food.new(food_data)
+      @searched_food = params[:q]
+      foods_data = FoodDataApiFacade.search_foods(@searched_food)
+      @foods = FoodService.build_foods(foods_data['foods'])
     end
   end
