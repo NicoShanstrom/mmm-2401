@@ -2,15 +2,12 @@
 
 <h2> <%= @searched_food %> Info </h2>
 
-<section class='food_items'>
-  <ul>
-    <% @foods.each do |food| %>
-      <li class="food_item" >
-        <p> GTIN/UPC code: <%= food.upc %> </p>
-        <p> Description: <%= food.description %> </p>
-        <p> Brand Owner: <%= food.brand %> </p>
-        <p> Ingredients: <%= food.ingredients %> </p>
-      </li>
-    <% end %>
-  </ul>
-</section>
+  <% @foods.each do |food| %>
+    <li class="food_item" >
+      <p> GTIN/UPC code: <%= food.upc %> </p>
+      <p> Description: <%= food.description %> </p>
+      <p> Brand Owner: <%= food.brand %> </p>
+      <p> Ingredients: <%= food.ingredients %> </p>
+    </li>
+  <% end %>
+
