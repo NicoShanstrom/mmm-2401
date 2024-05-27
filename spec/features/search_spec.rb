@@ -15,7 +15,9 @@ RSpec.describe "Search Page" do
     expect(page).to have_css('.food_item', count: 10)
     # save_and_open_page
     # require 'pry'; binding.pry
-    within('.food_item', match: :first) do
+    # first_food_item = all('.food_item').first
+    # within(first_food_item) do
+    within(".food_item:first-of-type") do
       expect(page).to have_content("GTIN/UPC code: 451884")
       expect(page).to have_content("Description: SWEET POTATOES")
       expect(page).to have_content("Brand Owner: NOT A BRANDED ITEM")
